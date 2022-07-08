@@ -1,8 +1,9 @@
 import "./app.scss";
+import MainPage from "./component/page/MainPage";
 
 const App = () => (
   <div>
-    Hello
+    <MainPage />
   </div>
 );
 
