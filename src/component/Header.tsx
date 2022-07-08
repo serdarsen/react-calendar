@@ -14,7 +14,7 @@ const Header: React.FC<Prop> = ({ currentDate }: Prop) => {
   const [dateLabel, setDateLabel] = useState("");
 
   const changeFormatType = () => {
-    formatType.current = DateService.getNextFormatTypeIndex(formatType.current);
+    formatType.current = DateService.findNextFormatTypeIndex(formatType.current);
     StorageService.saveFormatType(formatType.current);
   };
 

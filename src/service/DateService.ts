@@ -9,7 +9,7 @@ moment.updateLocale("en", {
 const FORMAT = ["Do MMMM gggg", "MMMM gggg"];
 
 const DateService = ({
-  getNextFormatTypeIndex: (prevIndex: number): number => {
+  findNextFormatTypeIndex: (prevIndex: number): number => {
     let index = 0;
 
     if (prevIndex + 1 < FORMAT.length) {
@@ -19,9 +19,9 @@ const DateService = ({
     return index;
   },
   getDate: (): moment.Moment => moment(),
-  getWeekdaysShort: (): string[] => moment.weekdaysShort(),
-  getFirstDayOfWeek: (): moment.Moment => moment().startOf("week"),
-  getLastDayOfWeek: (): moment.Moment => moment().endOf("week"),
+  getWeekdaysShort: (): string[] => moment.weekdaysShort().map((day) => day.toUpperCase()),
+  findFirstDayOfWeek: (): number => moment().startOf("week").date(),
+  findLastDayOfWeek: (): number => moment().endOf("week").date(),
   getDaysOfWeek: (): number => moment()
     .days(),
   format: (date: moment.Moment, formatType: number): string => {

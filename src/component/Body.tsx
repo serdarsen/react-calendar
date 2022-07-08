@@ -1,22 +1,17 @@
-import React, { useEffect } from "react";
-import DateService from "../service/DateService";
+import React from "react";
 import "./body.scss";
+import Table from "./Table";
+import Timeline from "./Timeline";
 
 type Prop = {
+    weekDays: number[]
 }
 
-const Body: React.FC<Prop> = () => {
-  useEffect(() => {
-    console.log("hello from body weekdaysShort:", DateService.getWeekdaysShort());
-    console.log("hello from body firstDayOfWeek:", DateService.getFirstDayOfWeek().format("Do MMMM gggg"));
-    console.log("hello from body lastDayOfWeek:", DateService.getLastDayOfWeek().format("Do MMMM gggg"));
-  });
-
-  return (
-    <div className="body">
-      Body
-    </div>
-  );
-};
+const Body: React.FC<Prop> = ({ weekDays }: Prop) => (
+  <div className="body">
+    <Timeline />
+    <Table weekDays={weekDays} />
+  </div>
+);
 
 export default Body;
