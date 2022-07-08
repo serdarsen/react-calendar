@@ -27,11 +27,12 @@ module.exports = {
     "react/function-component-definition": [2, { namedComponents: "arrow-function" }],
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
+    "react/jsx-filename-extension": [1, { extensions: [".ts", ".tsx"] }],
     "import/extensions": [
       "error",
       "ignorePackages",
       {
+        ts: "never",
         tsx: "never",
       },
     ],
@@ -39,7 +40,7 @@ module.exports = {
   settings: {
     "import/resolver": {
       node: {
-        extensions: [".tsx"],
+        extensions: [".ts", ".tsx"],
       },
     },
   },
