@@ -1,0 +1,39 @@
+.clickable-disabled {
+    color: #808080;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.clickable-disabled:hover {
+    color: #808080;
+}
+
+.clickable-disabled:active {
+    color: #808080;
+}
+
+.clickable-red {
+    color: #656565;
+    cursor: pointer;
+}
+
+.clickable-red:hover {
+    color: #cc6565;
+}
+
+.clickable-red:active {
+    color: #656565;
+}
+
+.clickable-black {
+    color: #656565;
+    cursor: pointer;
+}
+
+.clickable-black:hover {
+    color: #000;
+}
+
+.clickable-black:active {
+    color: #656565;
+}

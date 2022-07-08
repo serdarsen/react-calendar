@@ -1,9 +1,9 @@
 import "./app.scss";
-import MainPage from "./component/page/MainPage";
+import Calendar from "./component/Calendar";
 
 const App = () => (
-  <div>
-    <MainPage />
+  <div className="app">
+    <Calendar />
   </div>
 );
 
