@@ -19,20 +19,27 @@ const DateService = ({
     return index;
   },
   getDate: (): moment.Moment => moment(),
-  getWeekdaysShort: (): string[] => moment.weekdaysShort().map((day) => day.toUpperCase()),
-  findFirstDayOfWeek: (): number => moment().startOf("week").date(),
-  findLastDayOfWeek: (): number => moment().endOf("week").date(),
-  getDaysOfWeek: (): number => moment()
-    .days(),
-  format: (date: moment.Moment, formatType: number): string => {
-    let label = "";
-    if (date) {
-      label = date.format(FORMAT[formatType]);
-    } else {
-      console.error("Error in DateService.format: Invalid date: ", date);
+  findWeekdaysShort: ():
+  string[] => moment.weekdaysShort().map((day: string) => day.toUpperCase()),
+  findWeekdays: (date: moment.Moment): number[] => {
+    const firstDay = DateService.findFirstDayOfWeek(date);
+    const lastDay = DateService.findLastDayOfWeek(date);
+
+    const now = firstDay.clone();
+    const dates = [];
+
+    while (now.isSameOrBefore(lastDay)) {
+      dates.push(now.date());
+      now.add(1, "days");
     }
-    return label;
+    return dates;
   },
+  findFirstDayOfWeek: (date: moment.Moment): moment.Moment => date.clone().startOf("week"),
+  findLastDayOfWeek: (date: moment.Moment): moment.Moment => date.clone().endOf("week"),
+  getDaysOfWeek: (date: moment.Moment): number => date
+    .days(),
+  format: (date: moment.Moment, formatType: number): string => (date ? date.format(FORMAT[formatType]) : ""),
+  addDays: (date: moment.Moment, days: number): moment.Moment => date.clone().add(days, "days"),
 });
 
 export default DateService;

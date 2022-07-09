@@ -1,31 +1,40 @@
-import range from "lodash/range";
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
 import DateService from "../service/DateService";
-import Body from "./Body";
 import "./calendar.scss";
 import Card from "./Card";
 import Header from "./Header";
+import Table from "./Table";
 
 type Prop = {
 }
 
 const Calendar: React.FC<Prop> = () => {
-//   const [, setUpdate] = useState(new Date());
-//   const update = () => setUpdate(new Date());
+  const [selectedDate, setSelectedDate] = useState(DateService.getDate());
+  const [currentDate, setCurrentDate] = useState(DateService.getDate());
 
-  const currentDate = useRef(DateService.getDate());
-  const firstDayOfWeek = useRef(DateService.findFirstDayOfWeek());
-  const lastDayOfWeek = useRef(DateService.findLastDayOfWeek());
-  const weekDays = useRef(range(firstDayOfWeek.current, lastDayOfWeek.current + 1, 1));
+  const onChangeRequestSelectedDate = (dayOfMonth: number) => {
+    const selectedDate = currentDate.clone().date(dayOfMonth);
+    setSelectedDate(selectedDate);
+  };
 
-  useEffect(() => {
-  }, []);
+  const onChangeRequestCurrentDate = (days: number) => {
+    const updatedDate = DateService.addDays(currentDate, days);
+    setCurrentDate(updatedDate);
+  };
 
   return (
     <div className="calendar">
-      <Card>
-        <Header currentDate={currentDate.current} />
-        <Body weekDays={weekDays.current} />
+      <Card className="calendar__card">
+        <Header
+          selectedDate={selectedDate}
+          currentDate={currentDate}
+          onChangeRequestCurrentDate={onChangeRequestCurrentDate}
+        />
+        <Table
+          selectedDate={selectedDate}
+          currentDate={currentDate}
+          onChangeRequestSelectedDate={onChangeRequestSelectedDate}
+        />
       </Card>
     </div>
   );

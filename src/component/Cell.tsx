@@ -1,14 +1,11 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import "./cell.scss";
 
 type Prop = {
-    children: ReactNode
 }
 
-const Cell: React.FC<Prop> = ({ children }: Prop) => (
-  <div className="cell">
-    {children}
-  </div>
+const Cell: React.FC<Prop> = () => (
+  <div className="cell" />
 );
 
 export default Cell;

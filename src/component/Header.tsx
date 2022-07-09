@@ -6,10 +6,16 @@ import StorageService from "../service/StorageService";
 import "./header.scss";
 
 type Prop = {
-    currentDate: moment.Moment;
+    selectedDate: moment.Moment,
+    currentDate: moment.Moment,
+    onChangeRequestCurrentDate: Function
 }
 
-const Header: React.FC<Prop> = ({ currentDate }: Prop) => {
+const Header: React.FC<Prop> = ({
+  selectedDate,
+  currentDate,
+  onChangeRequestCurrentDate,
+}: Prop) => {
   const formatType = useRef(0);
   const [dateLabel, setDateLabel] = useState("");
 
@@ -23,7 +29,7 @@ const Header: React.FC<Prop> = ({ currentDate }: Prop) => {
   };
 
   const updateDateLabel = () => {
-    const dateLabel = DateService.format(currentDate, formatType.current);
+    const dateLabel = DateService.format(selectedDate, formatType.current);
     setDateLabel(dateLabel);
   };
 
@@ -32,10 +38,18 @@ const Header: React.FC<Prop> = ({ currentDate }: Prop) => {
     updateDateLabel();
   };
 
+  const onClickPrev = () => {
+    onChangeRequestCurrentDate(-7);
+  };
+
+  const onClickNext = () => {
+    onChangeRequestCurrentDate(7);
+  };
+
   useEffect(() => {
     findFormatType();
     updateDateLabel();
-  }, [currentDate]);
+  }, [selectedDate]);
 
   return (
     <header className="header">
@@ -56,11 +70,13 @@ const Header: React.FC<Prop> = ({ currentDate }: Prop) => {
           className="clickable-black"
           size={30}
           title="Prev"
+          onClick={onClickPrev}
         />
         <FaChevronRight
           className="clickable-black"
           size={30}
           title="Next"
+          onClick={onClickNext}
         />
       </div>
     </header>

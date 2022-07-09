@@ -1,23 +1,50 @@
-import React, { useRef } from "react";
+import moment from "moment";
+import React, { useEffect, useMemo, useState } from "react";
 import DateService from "../service/DateService";
+import Cell from "./Cell";
 import Head from "./Head";
 import Row from "./Row";
 import "./table.scss";
 
 type Prop = {
-    weekDays: number[]
+    selectedDate: moment.Moment,
+    currentDate: moment.Moment,
+    onChangeRequestSelectedDate: Function
 }
 
-const Table: React.FC<Prop> = ({ weekDays }: Prop) => {
-  const weekdaysShort = useRef(DateService.getWeekdaysShort());
+const Table: React.FC<Prop> = ({
+  selectedDate,
+  currentDate,
+  onChangeRequestSelectedDate,
+}: Prop) => {
+  const weekdaysShort = useMemo(() => DateService.findWeekdaysShort(), []);
+
+  const [weekDays, setWeekDays] = useState([]);
+
+  const onClickHead = (dayOfMonth: number) => {
+    onChangeRequestSelectedDate(dayOfMonth);
+  };
+
+  useEffect(() => {
+    const weekDays = DateService.findWeekdays(currentDate);
+    setWeekDays(weekDays);
+  }, [currentDate]);
 
   return (
     <div className="table">
       <Row>
-        {weekdaysShort.current.map((day) => <Head>{day}</Head>)}
+        {weekDays.map((day, index) => (
+          <Head
+            currentDay={day}
+            selectedDay={selectedDate.date()}
+            label={weekdaysShort[index]}
+            value={day}
+            onClick={onClickHead}
+          />
+        ))}
       </Row>
       <Row>
-        {weekDays.map((day) => <Head>{day}</Head>)}
+        {weekDays.map(() => <Cell />)}
       </Row>
     </div>
   );

@@ -4,6 +4,10 @@
     margin: 0 auto;
 }
 
+.calendar__card {
+    min-height: 30rem;
+}
+
 @media screen and (max-width: 800px) {
     .calendar {
         padding: 12rem 0rem 0rem 0rem;
