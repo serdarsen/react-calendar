@@ -35,9 +35,10 @@ const DateService = ({
 
     const firstEmptyCellsLength = firstDay.day();
 
-    const lastEmptyCellsLength = (ONE_WEEK_IN_DAYS
-        - ((firstEmptyCellsLength + lastDay.date()) % ONE_WEEK_IN_DAYS)
-    );
+    const lastRowDatesLength = (firstEmptyCellsLength + lastDay.date()) % ONE_WEEK_IN_DAYS;
+
+    const lastEmptyCellsLength = lastRowDatesLength ? (ONE_WEEK_IN_DAYS
+        - lastRowDatesLength) : 0;
 
     // Append first empty cells
     for (let i = 0; i < firstEmptyCellsLength; i++) {
