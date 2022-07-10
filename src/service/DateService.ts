@@ -1,5 +1,7 @@
 import moment from "moment";
 
+const ONE_WEEK_IN_DAYS = 7;
+
 const FORMAT = [
   "Do MMMM gggg",
   "Do MMM gggg",
@@ -21,7 +23,7 @@ const DateService = ({
     return index;
   },
 
-  getToday: (): moment.Moment => moment(),
+  findToday: (): moment.Moment => moment(),
 
   findWeekdaysShort: (): string[] => moment.weekdaysShort(),
 
@@ -31,8 +33,14 @@ const DateService = ({
     const lastDay = currentDate.clone().endOf("month");
     const now = firstDay.clone();
 
+    const firstEmptyCellsLength = firstDay.day();
+
+    const lastEmptyCellsLength = (ONE_WEEK_IN_DAYS
+        - ((firstEmptyCellsLength + lastDay.date()) % ONE_WEEK_IN_DAYS)
+    );
+
     // Append first empty cells
-    for (let i = 0; i < firstDay.day(); i++) {
+    for (let i = 0; i < firstEmptyCellsLength; i++) {
       dates.push(null);
     }
 
@@ -43,9 +51,9 @@ const DateService = ({
     }
 
     // Append last empty cells
-    // for (let i = 0; i < 6; i++) {
-    //   dates.push(null);
-    // }
+    for (let i = 0; i < lastEmptyCellsLength; i++) {
+      dates.push(null);
+    }
 
     return dates;
   },

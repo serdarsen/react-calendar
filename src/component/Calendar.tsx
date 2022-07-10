@@ -9,9 +9,9 @@ type Prop = {
 }
 
 const Calendar: React.FC<Prop> = () => {
-  const [selectedDate, setSelectedDate] = useState(DateService.getToday());
-  const [currentDate, setCurrentDate] = useState(DateService.getToday());
-  const today = useMemo(() => DateService.getToday(), [currentDate]);
+  const [selectedDate, setSelectedDate] = useState(DateService.findToday());
+  const [currentDate, setCurrentDate] = useState(DateService.findToday());
+  const today = useMemo(() => DateService.findToday(), [currentDate]);
 
   const onChangeRequestSelectedDate = (dayOfMonth: number) => {
     let date = currentDate.clone().date(dayOfMonth);

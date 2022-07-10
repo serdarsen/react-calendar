@@ -1,4 +1,5 @@
 # React Calendar
+### [Live Site on Heroku](https://serdarsen-react-calendar.herokuapp.com/)
 
 ## Introduction
 React Calendar is a demo app displaying date.
@@ -13,4 +14,6 @@ run `npm run dev`, browse `localhost:8080`
 
 ## Reference
 - [Webpack](https://webpack.js.org/)
+- [Heroku](https://devcenter.heroku.com/categories/deployment)
 - [ESLint](https://eslint.org/)
+- [React Icons](https://react-icons.github.io/react-icons/icons?name=fa)
