@@ -29,7 +29,7 @@ const Header: React.FC<Prop> = ({
   };
 
   const updateDateLabel = () => {
-    const dateLabel = DateService.format(selectedDate, formatType.current);
+    const dateLabel = DateService.format(selectedDate ?? currentDate, formatType.current);
     setDateLabel(dateLabel);
   };
 
@@ -39,17 +39,17 @@ const Header: React.FC<Prop> = ({
   };
 
   const onClickPrev = () => {
-    onChangeRequestCurrentDate(-7);
+    onChangeRequestCurrentDate(-1);
   };
 
   const onClickNext = () => {
-    onChangeRequestCurrentDate(7);
+    onChangeRequestCurrentDate(1);
   };
 
   useEffect(() => {
     findFormatType();
     updateDateLabel();
-  }, [selectedDate]);
+  }, [selectedDate, currentDate]);
 
   return (
     <header className="header">

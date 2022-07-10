@@ -1,12 +1,14 @@
 import moment from "moment";
 
-moment.updateLocale("en", {
-  week: {
-    dow: 1, // Monday is the first day of the week.
-  },
-});
-
-const FORMAT = ["Do MMMM gggg", "MMMM gggg"];
+const FORMAT = [
+  "Do MMMM gggg",
+  "Do MMM gggg",
+  "DD MMM gggg",
+  "DD MM gggg",
+  "MMMM gggg",
+  "MMMM D",
+  "MMM D",
+];
 
 const DateService = ({
   findNextFormatTypeIndex: (prevIndex: number): number => {
@@ -18,28 +20,39 @@ const DateService = ({
 
     return index;
   },
-  getDate: (): moment.Moment => moment(),
-  findWeekdaysShort: ():
-  string[] => moment.weekdaysShort().map((day: string) => day.toUpperCase()),
-  findWeekdays: (date: moment.Moment): number[] => {
-    const firstDay = DateService.findFirstDayOfWeek(date);
-    const lastDay = DateService.findLastDayOfWeek(date);
 
-    const now = firstDay.clone();
+  getToday: (): moment.Moment => moment(),
+
+  findWeekdaysShort: (): string[] => moment.weekdaysShort(),
+
+  findMonthdays: (currentDate: moment.Moment): number[] => {
     const dates = [];
+    const firstDay = currentDate.clone().startOf("month");
+    const lastDay = currentDate.clone().endOf("month");
+    const now = firstDay.clone();
 
+    // Append first empty cells
+    for (let i = 0; i < firstDay.day(); i++) {
+      dates.push(null);
+    }
+
+    // Append days of month
     while (now.isSameOrBefore(lastDay)) {
       dates.push(now.date());
       now.add(1, "days");
     }
+
+    // Append last empty cells
+    // for (let i = 0; i < 6; i++) {
+    //   dates.push(null);
+    // }
+
     return dates;
   },
-  findFirstDayOfWeek: (date: moment.Moment): moment.Moment => date.clone().startOf("week"),
-  findLastDayOfWeek: (date: moment.Moment): moment.Moment => date.clone().endOf("week"),
-  getDaysOfWeek: (date: moment.Moment): number => date
-    .days(),
+
   format: (date: moment.Moment, formatType: number): string => (date ? date.format(FORMAT[formatType]) : ""),
-  addDays: (date: moment.Moment, days: number): moment.Moment => date.clone().add(days, "days"),
+
+  addMonths: (date: moment.Moment, months: number): moment.Moment => date.clone().add(months, "months"),
 });
 
 export default DateService;

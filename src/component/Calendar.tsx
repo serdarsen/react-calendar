@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import DateService from "../service/DateService";
 import "./calendar.scss";
 import Card from "./Card";
@@ -9,28 +9,37 @@ type Prop = {
 }
 
 const Calendar: React.FC<Prop> = () => {
-  const [selectedDate, setSelectedDate] = useState(DateService.getDate());
-  const [currentDate, setCurrentDate] = useState(DateService.getDate());
+  const [selectedDate, setSelectedDate] = useState(DateService.getToday());
+  const [currentDate, setCurrentDate] = useState(DateService.getToday());
+  const today = useMemo(() => DateService.getToday(), [currentDate]);
 
   const onChangeRequestSelectedDate = (dayOfMonth: number) => {
-    const selectedDate = currentDate.clone().date(dayOfMonth);
-    setSelectedDate(selectedDate);
+    let date = currentDate.clone().date(dayOfMonth);
+
+    if (dayOfMonth === selectedDate.date()
+        && selectedDate.month() === date.month()
+        && selectedDate.year() === date.year()) {
+      date = today.clone();
+    }
+
+    setSelectedDate(date);
   };
 
-  const onChangeRequestCurrentDate = (days: number) => {
-    const updatedDate = DateService.addDays(currentDate, days);
-    setCurrentDate(updatedDate);
+  const onChangeRequestCurrentDate = (months: number) => {
+    const date = DateService.addMonths(currentDate, months);
+    setCurrentDate(date);
   };
 
   return (
     <div className="calendar">
-      <Card className="calendar__card">
+      <Card>
         <Header
           selectedDate={selectedDate}
           currentDate={currentDate}
           onChangeRequestCurrentDate={onChangeRequestCurrentDate}
         />
         <Table
+          today={today}
           selectedDate={selectedDate}
           currentDate={currentDate}
           onChangeRequestSelectedDate={onChangeRequestSelectedDate}

@@ -1,6 +1,51 @@
+$border: solid 1px #dfdfdf;
+
 .table {
+    display: grid;
+    grid-template-columns: repeat(7, 5rem);
+    grid-gap: 0px;
+    justify-content: center;
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
+    min-height: 23rem;
+}
+
+.table__head {
+    padding: 0.5rem 0rem 0.5rem 0rem;
+    text-align: center;
+    text-transform: uppercase;
     font-size: 1rem;
-    padding: 1rem 1rem 0rem 1rem;
-    display: flex;
-    flex-direction: column;
+}
+
+.table__cell {
+    padding: 1rem 0rem 1rem 0rem;
+    text-align: center;
+    font-size: 1rem;
+    border-top: $border;
+    border-left: $border;
+
+    &:nth-last-child(-n+7) {
+        border-bottom: $border;
+    }
+
+    &:nth-child(7n) {
+        border-right: $border;
+    }
+
+    &:hover {
+        background-color: #f8f9fa;
+    }
+
+    &:active {
+        background-color: #f3f3f3;
+    }
+
+    cursor: pointer;
+}
+
+.table__cell-active {
+    background-color: #f8f9fa;
+}
+
+.table__cell-selected {
+    background-color: #f3f3f3;
 }

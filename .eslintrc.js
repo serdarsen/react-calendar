@@ -20,6 +20,8 @@ module.exports = {
       "error",
       "double",
     ],
+    "react/no-array-index-key": "off",
+    "no-plusplus": "off",
     "no-param-reassign": "off",
     "react/prop-types": "off",
     "no-console": "off",
