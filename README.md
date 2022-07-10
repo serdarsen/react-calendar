@@ -1,6 +1,8 @@
 # React Calendar
 ### [Live Site on Heroku](https://serdarsen-react-calendar.herokuapp.com/)
 
+![React Calendar](./screenshot.png)
+
 ## Introduction
 React Calendar is a demo app displaying date.
 
